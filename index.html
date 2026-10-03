@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GyanGigyasha - શૈક્ષણિક પ્લેટફોર્મ</title>
+  <style>
+    :root { --primary: #1e3c72; --secondary: #2a5298; --accent: #ff9800; --bg: #f4f7f6; --text: #333; --card-bg: #fff; }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); margin: 0; padding: 0; overflow-x: hidden; }
+    
+    header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 20px 15px; text-align: center; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); position: relative; }
+    header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
+    header p { margin: 5px 0 0; font-size: 13px; opacity: 0.9; }
+    .menu-btn { position: absolute; left: 15px; top: 22px; background: none; border: none; color: white; font-size: 26px; cursor: pointer; padding: 0; outline: none; }
+    
+    .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s; }
+    .sidebar-overlay.active { display: block; opacity: 1; }
+    .sidebar { position: fixed; top: 0; left: -260px; width: 260px; height: 100%; background: var(--card-bg); box-shadow: 2px 0 12px rgba(0,0,0,0.2); z-index: 1000; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; }
+    .sidebar.active { left: 0; }
+    .sidebar-header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 30px 20px; text-align: center; }
+    .sidebar-header h2 { margin: 0; font-size: 20px; }
+    .sidebar-menu { list-style: none; padding: 0; margin: 0; }
+    .sidebar-menu li { border-bottom: 1px solid #f0f0f0; }
+    .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 15px 20px; color: var(--primary); text-decoration: none; font-size: 15px; font-weight: bold; transition: 0.2s; text-transform: uppercase; }
+    
+    #classModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center; }
+    .modal-box { background: #fff; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    .modal-box h2 { margin: 0 0 15px; color: var(--primary); }
+    .modal-box select { width: 100%; padding: 12px; border: 2px solid var(--secondary); border-radius: 8px; font-size: 15px; margin-bottom: 20px; outline: none; background: #f9f9f9; }
+    .btn-save { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+
+    .app-container { max-width: 800px; margin: -20px auto 20px; padding: 0 15px; position: relative; z-index: 10; }
+    .hero-card { background: var(--card-bg); border-radius: 15px; padding: 20px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.08); margin-bottom: 25px; border-top: 4px solid var(--accent); }
+    .hero-card h2 { margin: 0 0 5px; color: var(--primary); font-size: 18px; }
+    .hero-card .badge { display: inline-block; background: #e3f2fd; color: #0d47a1; font-size: 12px; font-weight: bold; padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; border: 1px solid #bbdefb; }
+    .hero-card p { font-size: 14px; color: #555; margin: 0; line-height: 1.5; }
+
+    .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .module-card { background: var(--card-bg); border-radius: 15px; padding: 20px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; border: 1px solid #eaeaea; }
+    .module-card .icon { font-size: 35px; margin-bottom: 10px; display: block; }
+    .module-card h3 { margin: 0; font-size: 15px; color: var(--primary); }
+    .module-card p { margin: 5px 0 0; font-size: 11px; color: #777; }
+
+    .content-section { display: none; background: var(--card-bg); border-radius: 15px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-top: 20px; animation: fadeIn 0.4s; }
+    .content-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .flex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .back-btn { background: #eee; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: #333; cursor: pointer; }
+    .sync-btn { background: #4caf50; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: #fff; cursor: pointer; }
+    
+    .acc-item { margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+    .acc-header { background: var(--secondary); color: white; padding: 12px 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; font-size: 15px; }
+    .acc-header span { margin-right: 10px; font-size: 18px; font-weight: bold; width: 15px; text-align: center; }
+    .acc-content { display: none; background: #fff; }
+    .acc-content.active { display: block; }
+    
+    .sub-header { padding: 12px 15px 12px 35px; background: #f1f5f9; color: var(--primary); font-weight: bold; cursor: pointer; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; font-size: 14px; }
+    .sub-content { display: none; padding: 15px 15px 15px 45px; border-bottom: 1px solid #e0e0e0; }
+    .sub-content.active { display: block; }
+
+    .action-btn { display: inline-block; background: var(--accent); color: white; padding: 8px 15px; margin: 5px 5px 5px 0; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .action-btn.paper { background: #2196f3; }
+    .empty-msg { font-size: 12px; color: #888; font-style: italic; }
+    
+    footer { text-align: center; padding: 20px; font-size: 12px; color: #888; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <div id="classModal">
+    <div class="modal-box">
+      <h2>🎓 તમારું ધોરણ પસંદ કરો</h2>
+      <select id="classSelector">
+        <option value="11-Commerce">ધોરણ ૧૧ (કોમર્સ)</option>
+        <option value="11-Arts">ધોરણ ૧૧ (આર્ટસ)</option>
+        <option value="12-Commerce">ધોરણ ૧૨ (કોમર્સ)</option>
+        <option value="12-Arts">ધોરણ ૧૨ (આર્ટસ)</option>
+      </select>
+      <button class="btn-save" onclick="saveClass()">આગળ વધો ➡</button>
+    </div>
+  </div>
+
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>GyanGigyasha</h2>
+      <p id="menuClassDisplay">ધોરણ પસંદ કરો</p>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#" onclick="toggleSidebar(); goHome()">🏠 HOME</a></li>
+      <li><a href="#" onclick="toggleSidebar(); openSection('materialSection')">📑 PAPERS & BLUEPRINT</a></li>
+      <li><a href="#" onclick="toggleSidebar(); openSection('quizSection')">📝 MCQ</a></li>
+      <li><a href="#" onclick="toggleSidebar(); openSection('noticeSection')">📢 CIRCULARS</a></li>
+      <li style="margin-top: 20px; border-top: 2px solid #eee;"><a href="#" onclick="toggleSidebar(); changeClass()" style="color: #ff9800;">⚙️ CHANGE CLASS</a></li>
+    </ul>
+  </div>
+
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <h1>🎓 GyanGigyasha</h1>
+    <p>સ્માર્ટ લર્નિંગ એપ By: હેમંત સર</p>
+  </header>
+
+  <div class="app-container">
+    
+    <!-- Home Menu -->
+    <div id="homeMenu">
+      <div class="hero-card">
+        <h2>સ્વાગત છે, વિદ્યાર્થી મિત્રો!</h2>
+        <div class="badge" id="homeClassDisplay">ધોરણ પસંદ કરો</div>
+      </div>
+      <div class="module-grid">
+        <div class="module-card" onclick="openSection('bookSection')"><span class="icon">📖</span><h3>પાઠ્યપુસ્તકો</h3></div>
+        <div class="module-card" onclick="openSection('videoSection')"><span class="icon">▶️</span><h3>વિડીયો લેક્ચર્સ</h3></div>
+        <div class="module-card" onclick="openSection('materialSection')"><span class="icon">📑</span><h3>પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ</h3></div>
+        <div class="module-card" onclick="openSection('quizSection')"><span class="icon">📝</span><h3>ઓનલાઇન ટેસ્ટ</h3></div>
+        <div class="module-card" onclick="openSection('noticeSection')"><span class="icon">📢</span><h3>બોર્ડ અપડેટ્સ</h3></div>
+        <div class="module-card" onclick="window.open('https://api.whatsapp.com/send?phone=YOURNUMBER', '_blank')"><span class="icon">💬</span><h3>પ્રશ્ન પૂછો</h3></div>
+      </div>
+    </div>
+
+    <!-- પ્રશ્નપત્રો સેક્શન (Dynamic Data) -->
+    <div id="materialSection" class="content-section">
+      <div class="flex-header">
+        <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
+        <button class="sync-btn" id="syncBtn" onclick="fetchPapers()">🔄 નવો ડેટા લાવો</button>
+      </div>
+      <h2 style="color:var(--primary); margin-top:0;">📑 પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ (<span class="current-class-lbl"></span>)</h2>
+      
+      <div id="accordionContainer">
+        <!-- વિષય 1 -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)"><span>+</span> આંકડાશાસ્ત્ર</div>
+          <div class="acc-content">
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> પ્રથમ પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="આંકડાશાસ્ત્ર" data-exam="પ્રથમ પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> દ્વિતીય પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="આંકડાશાસ્ત્ર" data-exam="દ્વિતીય પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> <span class="exam-annual-text">વાર્ષિક પરીક્ષા</span></div>
+            <div class="sub-content exam-box" data-sub="આંકડાશાસ્ત્ર" data-exam="વાર્ષિક"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+          </div>
+        </div>
+        <!-- વિષય 2 -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)"><span>+</span> વાણિજ્ય વ્યવસ્થા અને સંચાલન</div>
+          <div class="acc-content">
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> પ્રથમ પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="વાણિજ્ય વ્યવસ્થા અને સંચાલન" data-exam="પ્રથમ પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> દ્વિતીય પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="વાણિજ્ય વ્યવસ્થા અને સંચાલન" data-exam="દ્વિતીય પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> <span class="exam-annual-text">વાર્ષિક પરીક્ષા</span></div>
+            <div class="sub-content exam-box" data-sub="વાણિજ્ય વ્યવસ્થા અને સંચાલન" data-exam="વાર્ષિક"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+          </div>
+        </div>
+        <!-- વિષય 3 -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)"><span>+</span> અર્થશાસ્ત્ર</div>
+          <div class="acc-content">
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> પ્રથમ પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="અર્થશાસ્ત્ર" data-exam="પ્રથમ પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> દ્વિતીય પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="અર્થશાસ્ત્ર" data-exam="દ્વિતીય પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> <span class="exam-annual-text">વાર્ષિક પરીક્ષા</span></div>
+            <div class="sub-content exam-box" data-sub="અર્થશાસ્ત્ર" data-exam="વાર્ષિક"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+          </div>
+        </div>
+        <!-- વિષય 4 -->
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)"><span>+</span> નામાના મૂળતત્વો</div>
+          <div class="acc-content">
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> પ્રથમ પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="નામાના મૂળતત્વો" data-exam="પ્રથમ પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> દ્વિતીય પરીક્ષા</div>
+            <div class="sub-content exam-box" data-sub="નામાના મૂળતત્વો" data-exam="દ્વિતીય પરીક્ષા"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+            <div class="sub-header" onclick="toggleAcc(this)"><span>+</span> <span class="exam-annual-text">વાર્ષિક પરીક્ષા</span></div>
+            <div class="sub-content exam-box" data-sub="નામાના મૂળતત્વો" data-exam="વાર્ષિક"><span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- અન્ય સેક્શન્સ -->
+    <div id="bookSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">📖 પાઠ્યપુસ્તકો</h2></div>
+    <div id="videoSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">▶️ વિડીયો લેક્ચર્સ</h2></div>
+    <div id="quizSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">📝 ઓનલાઇન ટેસ્ટ (MCQ)</h2></div>
+    <div id="noticeSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">📢 પરિપત્રો (CIRCULARS)</h2></div>
+  </div>
+
+  <footer>© 2026 GyanGigyasha. All rights reserved.</footer>
+
+  <script>
+    // 🔴 અહી તમારી Google Apps Script લિંક સેટ કરેલી છે 🔴
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUI_OYAX8UQE9-OE76D9J_PCpEC7hF9ANtaZUy2O4DdLTTmDLM4MQQHbnD4UG5fg4OVA/exec"; 
+
+    let userClass = "";
+
+    document.addEventListener("DOMContentLoaded", function() {
+      try { userClass = localStorage.getItem('gyan_class'); } catch (e) {}
+      if (!userClass) { document.getElementById('classModal').style.display = 'flex'; } 
+      else { updateUI(); loadSavedPapers(); }
+    });
+
+    function saveClass() {
+      const sel = document.getElementById('classSelector');
+      userClass = sel.options[sel.selectedIndex].text;
+      try { localStorage.setItem('gyan_class', userClass); } catch (e) {}
+      document.getElementById('classModal').style.display = 'none';
+      updateUI();
+      loadSavedPapers();
+    }
+    
+    function changeClass() { document.getElementById('classModal').style.display = 'flex'; }
+
+    function updateUI() {
+      if(userClass) {
+        document.getElementById('homeClassDisplay').innerText = userClass;
+        document.getElementById('menuClassDisplay').innerText = userClass;
+        document.querySelectorAll('.current-class-lbl').forEach(el => el.innerText = userClass);
+        
+        let annualExams = document.querySelectorAll('.exam-annual-text');
+        if(userClass.includes('૧૨') || userClass.includes('12')) {
+          annualExams.forEach(el => el.innerText = 'વાર્ષિક બોર્ડ પરીક્ષા');
+        } else {
+          annualExams.forEach(el => el.innerText = 'વાર્ષિક પરીક્ષા');
+        }
+      }
+    }
+
+    // ડેટાબેઝ સિંકિંગ અને રેન્ડરીંગ
+    async function fetchPapers() {
+      if(!SCRIPT_URL.startsWith("http")) return alert("કૃપા કરીને કોડમાં SCRIPT_URL મૂકો.");
+      document.getElementById('syncBtn').innerText = "⏳ લોડિંગ...";
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+        localStorage.setItem('gyan_papers_db', JSON.stringify(data));
+        renderPapersData(data);
+        document.getElementById('syncBtn').innerText = "🔄 નવો ડેટા લાવો";
+        alert("માહિતી સફળતાપૂર્વક અપડેટ થઈ ગઈ છે!");
+      } catch(err) {
+        alert("ડેટા લાવવામાં ભૂલ. ઇન્ટરનેટ તપાસો.");
+        document.getElementById('syncBtn').innerText = "🔄 નવો ડેટા લાવો";
+      }
+    }
+
+    function loadSavedPapers() {
+      const savedData = localStorage.getItem('gyan_papers_db');
+      if(savedData) { renderPapersData(JSON.parse(savedData)); }
+    }
+
+    function renderPapersData(data) {
+      // બધી જૂની લિંક ખાલી કરો
+      document.querySelectorAll('.exam-box').forEach(box => box.innerHTML = '<span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span>');
+      
+      let hasData = false;
+      // Index 1 થી લૂપ ફેરવો (પહેલી લાઇન હેડર છે)
+      for(let i=1; i<data.length; i++) {
+        let row = data[i];
+        let rowClass = row[0] ? row[0].toString().trim() : "";
+        let rowSub = row[1] ? row[1].toString().trim() : "";
+        let rowExam = row[2] ? row[2].toString().trim() : "";
+        let rowType = row[3] ? row[3].toString().trim() : ""; // બ્લુપ્રિન્ટ કે પ્રશ્નપત્ર
+        let rowLink = row[4] ? row[4].toString().trim() : "";
+
+        // જો ધોરણ મેચ થાય તો જ બતાવો
+        if(rowClass === userClass && rowLink !== "") {
+          let targetExam = rowExam;
+          if(targetExam.includes("વાર્ષિક") || targetExam.includes("બોર્ડ")) targetExam = "વાર્ષિક"; // વાર્ષિક મેપિંગ માટે
+
+          // યોગ્ય બોક્સ શોધો
+          let box = document.querySelector(`.exam-box[data-sub="${rowSub}"][data-exam="${targetExam}"]`);
+          if(box) {
+            // જો બોક્સમાં 'empty-msg' હોય તો તેને દૂર કરો
+            if(box.querySelector('.empty-msg')) box.innerHTML = "";
+            
+            // બટનનો રંગ નક્કી કરો (પ્રશ્નપત્ર હોય તો લીલો, નહીંતર કેસરી)
+            let btnClass = rowType.includes("પ્રશ્નપત્ર") || rowType.includes("પેપર") ? "action-btn paper" : "action-btn";
+            let btnIcon = btnClass.includes("paper") ? "📄" : "🎯";
+            
+            box.innerHTML += `<a href="${rowLink}" target="_blank" class="${btnClass}">${btnIcon} ${rowType}</a>`;
+            hasData = true;
+          }
+        }
+      }
+    }
+
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
+    function openSection(sectionId) { document.getElementById('homeMenu').style.display = 'none'; document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    function goHome() { document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active')); document.getElementById('homeMenu').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    
+    function toggleAcc(element) {
+      const content = element.nextElementSibling;
+      const span = element.querySelector('span');
+      if (content.classList.contains('active')) { content.classList.remove('active'); span.innerText = '+'; } 
+      else { content.classList.add('active'); span.innerText = '−'; }
+    }
+  </script>
+</body>
+</html>
