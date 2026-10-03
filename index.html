@@ -3,18 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>GyanGigyasha - શૈક્ષણિક પ્લેટફોર્મ | By Hemant Sir</title>
-  
-  <!-- 🔴 SEO Meta Tags (Google Search માટે) 🔴 -->
-  <meta name="description" content="GyanGigyasha (જ્ઞાન જિજ્ઞાસા) - ગુજરાત બોર્ડ (GSEB) ધોરણ ૧૧ અને ૧૨ કોમર્સના વિદ્યાર્થીઓ માટે હેમંત સર (Hemant Sir) દ્વારા તૈયાર કરેલ સ્માર્ટ એજ્યુકેશનલ પ્લેટફોર્મ. આંકડાશાસ્ત્ર, અર્થશાસ્ત્ર અને વાણિજ્ય વ્યવસ્થાના વિડીયો, પેપર્સ અને મટિરિયલ.">
-  <meta name="keywords" content="GyanGigyasha, gyangigyasha hemantsir, Hemant Sir Commerce, GSEB Std 12 Commerce, Std 11 Commerce, Gujarat Board, Statistics, Economics, BA, વાણિજ્ય વ્યવસ્થા, આંકડાશાસ્ત્ર, અર્થશાસ્ત્ર, Hemantkumar H Patel, Surat Commerce">
-  <meta name="author" content="Hemantkumar H. Patel">
-  
-  <!-- Social Media & WhatsApp Sharing Tags -->
-  <meta property="og:title" content="🎓 GyanGigyasha - By Hemant Sir">
-  <meta property="og:description" content="ગુજરાત બોર્ડ ધોરણ ૧૧ અને ૧૨ કોમર્સના વિદ્યાર્થીઓ માટે સ્માર્ટ એજ્યુકેશનલ એપ. પ્રશ્નપત્રો, બ્લુપ્રિન્ટ અને વિડીયો લેક્ચર્સ મેળવો.">
-  <meta property="og:type" content="website">
-
+  <title>GyanGigyasha - શૈક્ષણિક પ્લેટફોર્મ</title>
   <style>
     :root { --primary: #1e3c72; --secondary: #2a5298; --accent: #ff9800; --bg: #f4f7f6; --text: #333; --card-bg: #fff; }
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -34,8 +23,7 @@
     .sidebar-menu { list-style: none; padding: 0; margin: 0; }
     .sidebar-menu li { border-bottom: 1px solid #f0f0f0; }
     .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 15px 20px; color: var(--primary); text-decoration: none; font-size: 15px; font-weight: bold; transition: 0.2s; text-transform: uppercase; }
-    .sidebar-menu a:hover { background: #f8f9fa; padding-left: 25px; }
-
+    
     #classModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center; }
     .modal-box { background: #fff; padding: 25px; border-radius: 15px; width: 90%; max-width: 350px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
     .modal-box h2 { margin: 0 0 15px; color: var(--primary); }
@@ -50,7 +38,6 @@
 
     .module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
     .module-card { background: var(--card-bg); border-radius: 15px; padding: 20px 15px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); cursor: pointer; transition: 0.2s; border: 1px solid #eaeaea; }
-    .module-card:hover { transform: translateY(-5px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
     .module-card .icon { font-size: 35px; margin-bottom: 10px; display: block; }
     .module-card h3 { margin: 0; font-size: 15px; color: var(--primary); }
     .module-card p { margin: 5px 0 0; font-size: 11px; color: #777; }
@@ -70,13 +57,17 @@
     .acc-content.active { display: block; }
     
     .sub-header { padding: 12px 15px 12px 35px; background: #f1f5f9; color: var(--primary); font-weight: bold; cursor: pointer; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; font-size: 14px; }
-    .sub-header:hover { background: #e2e8f0; }
     .sub-content { display: none; padding: 15px 15px 15px 45px; border-bottom: 1px solid #e0e0e0; }
     .sub-content.active { display: block; }
 
     .action-btn { display: inline-block; background: var(--accent); color: white; padding: 8px 15px; margin: 5px 5px 5px 0; border-radius: 5px; text-decoration: none; font-size: 12px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     .action-btn.paper { background: #2196f3; }
     .empty-msg { font-size: 12px; color: #888; font-style: italic; }
+
+    /* MCQ Card Styles */
+    .mcq-card { background: #fdfdfd; padding: 15px; margin-bottom: 12px; border-left: 4px solid var(--accent); border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.05); border-right: 1px solid #eee; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .mcq-title { font-weight: bold; color: var(--primary); font-size: 15px; }
+    .mcq-desc { font-size: 12.5px; color: #666; margin-top: 4px; }
     
     footer { text-align: center; padding: 20px; font-size: 12px; color: #888; margin-top: 20px; }
   </style>
@@ -86,7 +77,6 @@
   <div id="classModal">
     <div class="modal-box">
       <h2>🎓 તમારું ધોરણ પસંદ કરો</h2>
-      <p style="font-size:13px; color:#555; margin-bottom:15px;">તમને યોગ્ય અભ્યાસક્રમ બતાવવા માટે કૃપા કરીને તમારો વર્ગ પસંદ કરો.</p>
       <select id="classSelector">
         <option value="11-Commerce">ધોરણ ૧૧ (કોમર્સ)</option>
         <option value="11-Arts">ધોરણ ૧૧ (આર્ટસ)</option>
@@ -108,7 +98,7 @@
       <li><a href="#" onclick="toggleSidebar(); openSection('materialSection')">📑 PAPERS & BLUEPRINT</a></li>
       <li><a href="#" onclick="toggleSidebar(); openSection('quizSection')">📝 MCQ</a></li>
       <li><a href="#" onclick="toggleSidebar(); openSection('noticeSection')">📢 CIRCULARS</a></li>
-      <li style="margin-top: 20px; border-top: 2px solid #eee;"><a href="#" onclick="toggleSidebar(); changeClass()" style="color: #ff9800;">⚙️️ CHANGE CLASS</a></li>
+      <li style="margin-top: 20px; border-top: 2px solid #eee;"><a href="#" onclick="toggleSidebar(); changeClass()" style="color: #ff9800;">⚙️ CHANGE CLASS</a></li>
     </ul>
   </div>
 
@@ -125,42 +115,22 @@
       <div class="hero-card">
         <h2>સ્વાગત છે, વિદ્યાર્થી મિત્રો!</h2>
         <div class="badge" id="homeClassDisplay">ધોરણ પસંદ કરો</div>
-        <p>તમારા ધોરણ મુજબના પાઠ્યપુસ્તકો, વિડીયો લેક્ચર્સ, બ્લુપ્રિન્ટ અને પ્રશ્નપત્રો નીચેથી પસંદ કરો.</p>
       </div>
-
       <div class="module-grid">
-        <div class="module-card" onclick="openSection('bookSection')">
-          <span class="icon">📖</span>
-          <h3>પાઠ્યપુસ્તકો</h3>
-        </div>
-        <div class="module-card" onclick="openSection('videoSection')">
-          <span class="icon">▶️</span>
-          <h3>વિડીયો લેક્ચર્સ</h3>
-        </div>
-        <div class="module-card" onclick="openSection('materialSection')">
-          <span class="icon">📑</span>
-          <h3>પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ</h3>
-        </div>
-        <div class="module-card" onclick="openSection('quizSection')">
-          <span class="icon">📝</span>
-          <h3>ઓનલાઇન ટેસ્ટ</h3>
-        </div>
-        <div class="module-card" onclick="openSection('noticeSection')">
-          <span class="icon">📢</span>
-          <h3>બોર્ડ અપડેટ્સ</h3>
-        </div>
-        <div class="module-card" onclick="window.open('https://api.whatsapp.com/send?phone=YOURNUMBER', '_blank')">
-          <span class="icon">💬</span>
-          <h3>પ્રશ્ન પૂછો</h3>
-        </div>
+        <div class="module-card" onclick="openSection('bookSection')"><span class="icon">📖</span><h3>પાઠ્યપુસ્તકો</h3></div>
+        <div class="module-card" onclick="openSection('videoSection')"><span class="icon">▶️</span><h3>વિડીયો લેક્ચર્સ</h3></div>
+        <div class="module-card" onclick="openSection('materialSection')"><span class="icon">📑</span><h3>પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ</h3></div>
+        <div class="module-card" onclick="openSection('quizSection')"><span class="icon">📝</span><h3>ઓનલાઇન ટેસ્ટ</h3></div>
+        <div class="module-card" onclick="openSection('noticeSection')"><span class="icon">📢</span><h3>બોર્ડ અપડેટ્સ</h3></div>
+        <div class="module-card" onclick="window.open('https://api.whatsapp.com/send?phone=YOURNUMBER', '_blank')"><span class="icon">💬</span><h3>પ્રશ્ન પૂછો</h3></div>
       </div>
     </div>
 
-    <!-- પ્રશ્નપત્રો સેક્શન (Dynamic Data) -->
+    <!-- પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ સેક્શન -->
     <div id="materialSection" class="content-section">
       <div class="flex-header">
         <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
-        <button class="sync-btn" id="syncBtn" onclick="fetchPapers()">🔄 નવો ડેટા લાવો</button>
+        <button class="sync-btn" onclick="fetchPapers()">🔄 નવો ડેટા લાવો</button>
       </div>
       <h2 style="color:var(--primary); margin-top:0;">📑 પ્રશ્નપત્રો અને બ્લુપ્રિન્ટ (<span class="current-class-lbl"></span>)</h2>
       
@@ -216,38 +186,32 @@
       </div>
     </div>
 
-    <!-- અન્ય સેક્શન્સ -->
-    <div id="bookSection" class="content-section">
-      <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
-      <h2 style="color:var(--primary); margin-top:0;">📖 પાઠ્યપુસ્તકો (<span class="current-class-lbl"></span>)</h2>
-      <p>અહીં તમારા ધોરણના ગુજરાત બોર્ડના પાઠ્યપુસ્તકો જોવા મળશે.</p>
-    </div>
-
-    <div id="videoSection" class="content-section">
-      <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
-      <h2 style="color:var(--primary); margin-top:0;">▶️ વિડીયો લેક્ચર્સ (<span class="current-class-lbl"></span>)</h2>
-      <p>અહીં આપણે YouTube વિડીયો પ્રકરણ મુજબ ગોઠવીશું.</p>
-    </div>
-
+    <!-- ઓનલાઇન ટેસ્ટ (MCQ) સેક્શન (નવું ડાયનેમિક) -->
     <div id="quizSection" class="content-section">
-      <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
+      <div class="flex-header">
+        <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
+        <button class="sync-btn" onclick="fetchPapers()">🔄 નવો ડેટા લાવો</button>
+      </div>
       <h2 style="color:var(--primary); margin-top:0;">📝 ઓનલાઇન ટેસ્ટ (MCQ)</h2>
-      <p>અહીં MCQ ટેસ્ટની લિંક્સ મૂકવામાં આવશે.</p>
+      <p style="font-size: 13px; color: #555;">તમારા ધોરણ (<span class="current-class-lbl"></span>) ની ઉપલબ્ધ ઓનલાઇન ટેસ્ટ નીચે મુજબ છે:</p>
+      
+      <!-- MCQ Cards અહીં આપમેળે આવશે -->
+      <div id="mcqContainer">
+        <span class="empty-msg" style="display:block; text-align:center; padding: 20px;">માહિતી જોવા માટે 'નવો ડેટા લાવો' બટન પર ક્લિક કરો.</span>
+      </div>
     </div>
 
-    <div id="noticeSection" class="content-section">
-      <button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button>
-      <h2 style="color:var(--primary); margin-top:0;">📢 પરિપત્રો (CIRCULARS)</h2>
-      <p>બોર્ડની પરીક્ષાની તારીખો અને અન્ય માહિતી અહી મુકાશે.</p>
-    </div>
-
+    <!-- અન્ય સેક્શન્સ -->
+    <div id="bookSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">📖 પાઠ્યપુસ્તકો</h2></div>
+    <div id="videoSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">▶️ વિડીયો લેક્ચર્સ</h2></div>
+    <div id="noticeSection" class="content-section"><button class="back-btn" onclick="goHome()">⬅ પાછા જાવ</button><h2 style="color:var(--primary);">📢 પરિપત્રો (CIRCULARS)</h2></div>
   </div>
 
-  <footer>© 2026 GyanGigyasha. All rights reserved. <br> Designed for GSEB Commerce Students.</footer>
+  <footer>© 2026 GyanGigyasha. All rights reserved.</footer>
 
   <script>
-    // 🔴 અહી તમારી Google Apps Script લિંક સેટ કરેલી છે 🔴
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzO7NTSWZbyHDyfRF7PUOqQfMkZcFRu1ps-9TqvrKLYIfFDOmrlWH1JT6qhE1avYZZ4iw/exec"; 
+    // 🔴 અહી તમારી Google Apps Script લિંક સેટ કરો 🔴
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUI_OYAX8UQE9-OE76D9J_PCpEC7hF9ANtaZUy2O4DdLTTmDLM4MQQHbnD4UG5fg4OVA/exec"; 
 
     let userClass = "";
 
@@ -283,20 +247,21 @@
       }
     }
 
-    // ડેટાબેઝ સિંકિંગ અને રેન્ડરીંગ
+    // ડેટાબેઝ સિંકિંગ
     async function fetchPapers() {
       if(!SCRIPT_URL.startsWith("http")) return alert("કૃપા કરીને કોડમાં SCRIPT_URL મૂકો.");
-      document.getElementById('syncBtn').innerText = "⏳ લોડિંગ...";
+      let btns = document.querySelectorAll('.sync-btn');
+      btns.forEach(btn => btn.innerText = "⏳ લોડિંગ...");
       try {
         const response = await fetch(SCRIPT_URL);
         const data = await response.json();
         localStorage.setItem('gyan_papers_db', JSON.stringify(data));
         renderPapersData(data);
-        document.getElementById('syncBtn').innerText = "🔄 નવો ડેટા લાવો";
+        btns.forEach(btn => btn.innerText = "🔄 નવો ડેટા લાવો");
         alert("માહિતી સફળતાપૂર્વક અપડેટ થઈ ગઈ છે!");
       } catch(err) {
         alert("ડેટા લાવવામાં ભૂલ. ઇન્ટરનેટ તપાસો.");
-        document.getElementById('syncBtn').innerText = "🔄 નવો ડેટા લાવો";
+        btns.forEach(btn => btn.innerText = "🔄 નવો ડેટા લાવો");
       }
     }
 
@@ -306,9 +271,13 @@
     }
 
     function renderPapersData(data) {
+      // બોક્સ ખાલી કરો
       document.querySelectorAll('.exam-box').forEach(box => box.innerHTML = '<span class="empty-msg">કોઈ માહિતી ઉપલબ્ધ નથી.</span>');
+      document.getElementById('mcqContainer').innerHTML = '';
       
-      let hasData = false;
+      let hasMcqData = false;
+
+      // ડેટા લૂપ (શીટની માહિતી મુજબ)
       for(let i=1; i<data.length; i++) {
         let row = data[i];
         let rowClass = row[0] ? row[0].toString().trim() : "";
@@ -318,18 +287,40 @@
         let rowLink = row[4] ? row[4].toString().trim() : "";
 
         if(rowClass === userClass && rowLink !== "") {
-          let targetExam = rowExam;
-          if(targetExam.includes("વાર્ષિક") || targetExam.includes("બોર્ડ")) targetExam = "વાર્ષિક"; 
+          
+          // --- જો એન્ટ્રી 'MCQ' ની હોય તો ---
+          if(rowType.toUpperCase().includes("MCQ") || rowType.includes("ટેસ્ટ")) {
+            let mcqCard = `
+              <div class="mcq-card">
+                <div>
+                  <div class="mcq-title">${rowSub}</div>
+                  <div class="mcq-desc">${rowExam}</div>
+                </div>
+                <a href="${rowLink}" target="_blank" class="action-btn" style="margin:0;">શરૂ કરો 🚀</a>
+              </div>
+            `;
+            document.getElementById('mcqContainer').innerHTML += mcqCard;
+            hasMcqData = true;
+          } 
+          // --- જો એન્ટ્રી 'પ્રશ્નપત્ર/બ્લુપ્રિન્ટ' ની હોય તો ---
+          else {
+            let targetExam = rowExam;
+            if(targetExam.includes("વાર્ષિક") || targetExam.includes("બોર્ડ")) targetExam = "વાર્ષિક"; 
 
-          let box = document.querySelector(`.exam-box[data-sub="${rowSub}"][data-exam="${targetExam}"]`);
-          if(box) {
-            if(box.querySelector('.empty-msg')) box.innerHTML = "";
-            let btnClass = rowType.includes("પ્રશ્નપત્ર") || rowType.includes("પેપર") ? "action-btn paper" : "action-btn";
-            let btnIcon = btnClass.includes("paper") ? "📄" : "🎯";
-            box.innerHTML += `<a href="${rowLink}" target="_blank" class="${btnClass}">${btnIcon} ${rowType}</a>`;
-            hasData = true;
+            let box = document.querySelector(`.exam-box[data-sub="${rowSub}"][data-exam="${targetExam}"]`);
+            if(box) {
+              if(box.querySelector('.empty-msg')) box.innerHTML = "";
+              let btnClass = rowType.includes("પ્રશ્નપત્ર") || rowType.includes("પેપર") ? "action-btn paper" : "action-btn";
+              let btnIcon = btnClass.includes("paper") ? "📄" : "🎯";
+              box.innerHTML += `<a href="${rowLink}" target="_blank" class="${btnClass}">${btnIcon} ${rowType}</a>`;
+            }
           }
         }
+      }
+
+      // જો કોઈ MCQ ના હોય તો મેસેજ બતાવો
+      if(!hasMcqData) {
+        document.getElementById('mcqContainer').innerHTML = '<span class="empty-msg" style="display:block; text-align:center; padding: 20px;">હાલમાં કોઈ ઓનલાઇન ટેસ્ટ ઉપલબ્ધ નથી.</span>';
       }
     }
 
